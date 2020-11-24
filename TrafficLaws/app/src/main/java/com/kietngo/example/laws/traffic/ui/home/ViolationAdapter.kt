@@ -13,12 +13,17 @@ import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 class ViolationAdapter : ListAdapter<ViolationUI,ViolationAdapter.ViolationViewHolder>(ViolationAdapter.ViolationDiffUtil) {
 
     private lateinit var binding : ItemViolationBinding
+    lateinit var onClick: () -> Unit
 
     inner class ViolationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         fun bind(violationUI : ViolationUI){
             binding.tvTitleViolation.text = violationUI.violation.name
             binding.tvValueViolation.text = violationUI.violation.fines
+
+            itemView.setOnClickListener {
+                onClick()
+            }
         }
 
     }

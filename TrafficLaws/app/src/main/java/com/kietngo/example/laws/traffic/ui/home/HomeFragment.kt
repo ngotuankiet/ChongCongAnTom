@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kietngo.example.laws.traffic.R
 import com.kietngo.example.laws.traffic.base.BaseFragment
 import com.kietngo.example.laws.traffic.databinding.FragmentHomeBinding
+import com.kietngo.example.laws.traffic.repository.EventObserver
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 import timber.log.Timber
+import java.util.*
 
 class HomeFragment : BaseFragment() {
 
@@ -29,7 +32,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        violationGroupAdapter = ViolationGroupAdapter(requireContext(),viewModel.listViolationUI)
+        violationGroupAdapter = ViolationGroupAdapter(requireContext(),viewModel.listViolationUI,viewModel.btnViolation)
     }
 
     override fun onCreateView(
@@ -51,5 +54,18 @@ class HomeFragment : BaseFragment() {
             adapter = violationGroupAdapter
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         }
+
+        viewModel.btnViolation.observe(viewLifecycleOwner, {
+            violationGroupAdapter.onClickMore ={
+                it.onClick()
+            }
+        })
+
+        viewModel.navigateViolation.observe(viewLifecycleOwner, EventObserver{
+            if(it){
+                val action = HomeFragmentDirections.actionHomeFragmentToViolationFragment()
+                findNavController().navigate(action)
+            }
+        })
     }
 }

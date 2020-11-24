@@ -22,5 +22,10 @@
             android:lines="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <View
+            android:layout_margin="2dp"
+            android:background="#BA605D5D"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
     </LinearLayout>
 </layout>

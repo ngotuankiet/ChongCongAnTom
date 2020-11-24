@@ -11,10 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
+            app:cardCornerRadius="4dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/custom_item_violation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
             <LinearLayout
+                android:padding="10dp"
                 android:id="@+id/view_on_top"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -25,6 +29,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/violation_group_name"
                     android:textSize="20sp" />
+                <View
+                    android:layout_margin="5dp"
+                    android:background="#BA605D5D"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_violation"
                     android:layout_width="match_parent"
@@ -37,7 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/more_violation"
-                    app:icon="@drawable/ic_baseline_arrow_forward_24" />
+                    app:icon="@drawable/ic_baseline_arrow_forward_24"
+                    app:strokeColor="@color/white_color" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

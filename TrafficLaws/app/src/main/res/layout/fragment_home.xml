@@ -74,7 +74,8 @@
             android:id="@+id/list_violation_group"
             tools:listitem="@layout/item_violation_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottom_nav"
             app:layout_constraintTop_toBottomOf="@id/btn_laws_motorcycle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
