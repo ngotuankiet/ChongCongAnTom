@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -24,18 +25,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/violation_group_name"
                     android:textSize="20sp" />
-                <TextView
-                    android:id="@+id/tv_test_item_violation"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_violation"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="tessssssst"
-                    android:textSize="@dimen/sp_17" />
-                <TextView
-                    android:id="@+id/tv_money_value"
-                    android:text="@string/default_money_value"
-                    android:textSize="@dimen/sp_17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_violation" />
                 <Button
                     android:id="@+id/btn_violation_more"
                     style="?attr/materialButtonOutlinedStyle"

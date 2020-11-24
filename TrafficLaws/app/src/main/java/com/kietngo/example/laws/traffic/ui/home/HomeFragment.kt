@@ -6,17 +6,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kietngo.example.laws.traffic.R
 import com.kietngo.example.laws.traffic.base.BaseFragment
 import com.kietngo.example.laws.traffic.databinding.FragmentHomeBinding
+import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 import timber.log.Timber
-
 
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding : FragmentHomeBinding
-    private val viewModel : HomeViewModel by viewModels()
+    private lateinit var violationGroupAdapter: ViolationGroupAdapter
+    private val viewModel : HomeViewModel by viewModels(){
+        object : ViewModelProvider.Factory{
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return activity?.application?.let { HomeViewModel(it) } as T
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        violationGroupAdapter = ViolationGroupAdapter(requireContext(),viewModel.listViolationUI)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +43,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val violationGroupAdapter = ViolationGroupAdapter()
-        viewModel.listViolationGroup.observe(viewLifecycleOwner, {
+        viewModel.listViolationGroupUI.observe(viewLifecycleOwner, {
             violationGroupAdapter.submitList(it)
         })
 
@@ -39,5 +52,4 @@ class HomeFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         }
     }
-
 }

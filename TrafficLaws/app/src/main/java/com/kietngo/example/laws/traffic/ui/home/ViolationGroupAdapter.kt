@@ -1,23 +1,38 @@
 package com.kietngo.example.laws.traffic.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.*
 import com.kietngo.example.laws.traffic.databinding.ItemViolationGroupBinding
 import com.kietngo.example.laws.traffic.ui.model.ViolationGroupUI
-import timber.log.Timber
+import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 
-class ViolationGroupAdapter
+
+class ViolationGroupAdapter constructor(
+        val contextFragment: Context, val listViolationUI: LiveData<List<ViolationUI>>
+)
     : ListAdapter<ViolationGroupUI, ViolationGroupAdapter.ViolationGroupViewHolder>(ViolationGroupAdapter.ViolationGroupDiffUtil){
 
     private lateinit var binding: ItemViolationGroupBinding
 
     inner class ViolationGroupViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun onBind(violationGroupUI: ViolationGroupUI){
-            Timber.d("item item")
+            binding.tvViolationGroupName.text = violationGroupUI.violationGroup.groupName
+
+            val violationAdapter = ViolationAdapter()
+
+            listViolationUI.observe(contextFragment as LifecycleOwner, {list ->
+                violationAdapter.submitList(list)
+            })
+
+            binding.listViolation.apply {
+                adapter = violationAdapter
+                layoutManager = GridLayoutManager(contextFragment,2,GridLayoutManager.HORIZONTAL, false)
+            }
         }
     }
 

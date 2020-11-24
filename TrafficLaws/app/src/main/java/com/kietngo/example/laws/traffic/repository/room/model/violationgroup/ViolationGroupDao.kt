@@ -1,5 +1,6 @@
 package com.kietngo.example.laws.traffic.repository.room.model.violationgroup
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 
@@ -7,5 +8,5 @@ import androidx.room.Query
 interface ViolationGroupDao {
 
     @Query("SELECT * FROM TABLE_VIOLATION_GROUP")
-    fun getAllViolationGroup(): List<ViolationGroup>
+    fun getAllViolationGroup(): LiveData<List<ViolationGroup>>
 }
