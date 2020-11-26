@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kietngo.example.laws.traffic.R
 import com.kietngo.example.laws.traffic.base.BaseFragment
@@ -55,11 +56,16 @@ class HomeFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         }
 
-        viewModel.btnViolation.observe(viewLifecycleOwner, {
-            violationGroupAdapter.onClickMore ={
-                it.onClick()
-            }
+        val transportAdapter = TransportAdapter(requireContext())
+        //set list transport
+        viewModel.listTransportUI.observe(viewLifecycleOwner, {
+            transportAdapter.submitList(it)
         })
+
+        binding.listTransport.apply {
+            adapter = transportAdapter
+            layoutManager = GridLayoutManager(requireContext(),3, GridLayoutManager.VERTICAL, false)
+        }
 
         viewModel.navigateViolation.observe(viewLifecycleOwner, EventObserver{
             if(it){

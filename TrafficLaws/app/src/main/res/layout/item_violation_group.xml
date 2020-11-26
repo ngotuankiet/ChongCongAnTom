@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
-            app:cardCornerRadius="4dp"
-            android:layout_margin="5dp"
+            app:cardCornerRadius="@dimen/size_5"
+            android:layout_margin="@dimen/size_5"
             android:background="@drawable/custom_item_violation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/violation_group_name"
-                    android:textSize="20sp" />
+                    android:textColor="#000000"
+                    android:textSize="@dimen/sp_20" />
                 <View
                     android:layout_margin="5dp"
                     android:background="#BA605D5D"
@@ -42,9 +43,12 @@
                     tools:listitem="@layout/item_violation" />
                 <Button
                     android:id="@+id/btn_violation_more"
-                    style="?attr/materialButtonOutlinedStyle"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#bbdefb"
+                    android:textColor="#000000"
+                    app:iconTint="#000000"
                     android:text="@string/more_violation"
                     app:icon="@drawable/ic_baseline_arrow_forward_24"
                     app:strokeColor="@color/white_color" />

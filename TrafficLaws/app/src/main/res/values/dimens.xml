@@ -3,4 +3,7 @@
     <dimen name="sp_30">30sp</dimen>
     <dimen name="size_10">10dp</dimen>
     <dimen name="sp_17">17sp</dimen>
+    <dimen name="size_5">5dp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="size_70">70dp</dimen>
 </resources>

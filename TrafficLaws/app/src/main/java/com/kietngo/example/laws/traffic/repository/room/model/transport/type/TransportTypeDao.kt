@@ -8,7 +8,7 @@ import androidx.room.Query
 interface TransportTypeDao {
     /*get all Transport Type */
     @Query("SELECT * FROM TABLE_TRANSPORT_TYPE")
-    fun getAllTransportType(): List<TransportType>
+    fun getAllTransportType(): LiveData<List<TransportType>>
 
     /*get transport type with id*/
 //    @Query("SELECT * FROM TABLE_TRANSPORT_TYPE WHERE Type_ID = :typeId")

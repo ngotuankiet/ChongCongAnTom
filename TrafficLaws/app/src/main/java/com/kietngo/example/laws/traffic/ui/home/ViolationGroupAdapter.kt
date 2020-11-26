@@ -20,7 +20,6 @@ class ViolationGroupAdapter constructor(
     : ListAdapter<ViolationGroupUI, ViolationGroupAdapter.ViolationGroupViewHolder>(ViolationGroupAdapter.ViolationGroupDiffUtil){
 
     private lateinit var binding: ItemViolationGroupBinding
-    lateinit var onClickMore: () ->Unit
 
     inner class ViolationGroupViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun onBind(violationGroupUI: ViolationGroupUI){
@@ -43,7 +42,7 @@ class ViolationGroupAdapter constructor(
                 }
             })
             binding.btnViolationMore.setOnClickListener {
-                onClickMore()
+                violationGroupUI.onClick()
             }
         }
     }
