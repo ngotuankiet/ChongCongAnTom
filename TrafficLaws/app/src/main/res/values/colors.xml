@@ -11,4 +11,5 @@
     <color name="color_black">#000000</color>
     <color name="xanh_nhat">#bbdefb</color>
     <color name="mau_hong_nhat">#fbe9e7</color>
+    <color name="mau_cam">#ff7043</color>
 </resources>

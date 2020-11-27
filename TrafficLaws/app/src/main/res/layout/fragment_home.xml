@@ -28,7 +28,7 @@
             android:background="@color/mau_hong_nhat"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="56dp">
+            android:layout_height="@dimen/size_toolbar">
             <TextView
                 android:id="@+id/tv_name_app"
                 android:layout_width="wrap_content"
@@ -54,6 +54,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_transport"
+            tools:itemCount="3"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_70"
             android:background="@color/mau_hong_nhat"

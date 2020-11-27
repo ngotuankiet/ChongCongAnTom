@@ -1,4 +1,4 @@
-package com.kietngo.example.laws.traffic.ui.home
+package com.kietngo.example.laws.traffic.ui.violation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kietngo.example.laws.traffic.databinding.ItemViolationBinding
-import com.kietngo.example.laws.traffic.databinding.ItemViolationGroupBinding
+import com.kietngo.example.laws.traffic.databinding.ItemViolationInViolationGroupBinding
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 
-class ViolationAdapter : ListAdapter<ViolationUI,ViolationAdapter.ViolationViewHolder>(ViolationAdapter.ViolationDiffUtil) {
-
-    private lateinit var binding : ItemViolationBinding
+class ViolationInViolationGroupAdapter
+    : ListAdapter<ViolationUI,ViolationInViolationGroupAdapter.ViolationViewHolder>(ViolationInViolationGroupAdapter.ViolationDiffUtil){
+    private lateinit var binding : ItemViolationInViolationGroupBinding
 
     inner class ViolationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
@@ -39,7 +38,8 @@ class ViolationAdapter : ListAdapter<ViolationUI,ViolationAdapter.ViolationViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViolationViewHolder {
-        binding = ItemViolationBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        binding = ItemViolationInViolationGroupBinding
+                .inflate(LayoutInflater.from(parent.context),parent, false)
         return ViolationViewHolder(binding.root)
     }
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.kietngo.example.laws.traffic.base.BaseFragment
 import com.kietngo.example.laws.traffic.databinding.FragmentHomeBinding
 import com.kietngo.example.laws.traffic.repository.EventObserver
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
+import com.kietngo.example.laws.traffic.ui.share.ShareViewModel
 import timber.log.Timber
 import java.util.*
 
@@ -30,10 +32,11 @@ class HomeFragment : BaseFragment() {
             }
         }
     }
+    val shareViewModel : ShareViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        violationGroupAdapter = ViolationGroupAdapter(requireContext(),viewModel.listViolationUI,viewModel.btnViolation)
+        violationGroupAdapter = ViolationGroupAdapter(requireContext(),viewModel.listViolationUI,shareViewModel.shareViolationGroupId)
     }
 
     override fun onCreateView(

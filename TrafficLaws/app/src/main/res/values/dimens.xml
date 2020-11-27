@@ -6,4 +6,7 @@
     <dimen name="size_5">5dp</dimen>
     <dimen name="sp_20">20sp</dimen>
     <dimen name="size_70">70dp</dimen>
+    <dimen name="size_toolbar">56dp</dimen>
+    <dimen name="sp_25">25sp</dimen>
+    <dimen name="size_60">60dp</dimen>
 </resources>

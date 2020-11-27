@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.*
 import com.kietngo.example.laws.traffic.databinding.ItemViolationGroupBinding
 import com.kietngo.example.laws.traffic.ui.model.ButtonUI
@@ -14,8 +15,9 @@ import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 
 
 class ViolationGroupAdapter constructor(
-        val contextFragment: Context, val listViolationUI: LiveData<List<ViolationUI>>,
-        val buttonUI: LiveData<ButtonUI>
+        val contextFragment: Context,
+        val listViolationUI: LiveData<List<ViolationUI>>,
+        val shareViolationGroupId : MutableLiveData<Int>
 )
     : ListAdapter<ViolationGroupUI, ViolationGroupAdapter.ViolationGroupViewHolder>(ViolationGroupAdapter.ViolationGroupDiffUtil){
 
@@ -36,13 +38,9 @@ class ViolationGroupAdapter constructor(
                 layoutManager = GridLayoutManager(contextFragment,2,GridLayoutManager.HORIZONTAL, false)
             }
 
-            buttonUI.observe(contextFragment as LifecycleOwner, { btn ->
-                violationAdapter.onClick = {
-                    btn.onClick()
-                }
-            })
             binding.btnViolationMore.setOnClickListener {
                 violationGroupUI.onClick()
+                shareViolationGroupId.postValue(violationGroupUI.violationGroup.groupId)
             }
         }
     }

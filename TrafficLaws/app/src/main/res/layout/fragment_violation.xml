@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.violation.ViolationFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="@dimen/size_toolbar"
+            app:layout_constraintTop_toTopOf="parent">
+            <Button
+                android:id="@+id/btn_back"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                app:iconTint="@color/black"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/toolBar"
+                app:icon="@drawable/ic_baseline_arrow_back_24"
+                app:layout_constraintLeft_toLeftOf="@id/toolBar"
+                app:layout_constraintTop_toTopOf="@id/toolBar" />
+            <TextView
+                android:id="@+id/tv_title_violation_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/violation_group_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_25"
+                app:layout_constraintBottom_toBottomOf="@id/btn_back"
+                app:layout_constraintLeft_toRightOf="@id/btn_back"
+                app:layout_constraintTop_toTopOf="@id/btn_back" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_violation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBar"
+            tools:listitem="@layout/item_violation_in_violation_group" />
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

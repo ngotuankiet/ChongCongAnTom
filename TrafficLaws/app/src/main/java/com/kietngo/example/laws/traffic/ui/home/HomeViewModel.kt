@@ -27,19 +27,12 @@ class HomeViewModel constructor(
 
     private val listViolationGroup: LiveData<List<ViolationGroup>>
     val listViolationGroupUI : LiveData<List<ViolationGroupUI>>
+
+    private val listViolation : LiveData<List<Violation>>
     val listViolationUI : LiveData<List<ViolationUI>>
     private val listTransport : LiveData<List<TransportType>>
     val listTransportUI : LiveData<List<TransportUI>>
 
-    //TODO: onclick violation
-    private val _btnViolation = MutableLiveData<ButtonUI>().apply {
-        value = ButtonUI(
-            onClick = {
-                _navigateViolation.postValue(Event(true))
-            }
-        )
-    }
-    val btnViolation : LiveData<ButtonUI> = _btnViolation
 
     private val _navigateViolation = MutableLiveData<Event<Boolean>>()
     val navigateViolation : LiveData<Event<Boolean>> = _navigateViolation
@@ -64,7 +57,17 @@ class HomeViewModel constructor(
                 )
             }
         }
-        listViolationUI = violationRepository.getAllListViolationUI()
+        listViolation = violationRepository.getAllViolation()
+        listViolationUI = Transformations.map(listViolation){
+            it.map { violation ->
+                ViolationUI(
+                        violation = violation,
+                        onClick = {
+                         //   _navigateViolation.postValue(Event(true))
+                        }
+                )
+            }
+        }
 
         listTransport = transportRepository.getAllTransport()
         listTransportUI  = Transformations.map(listTransport) {
@@ -72,7 +75,7 @@ class HomeViewModel constructor(
                 TransportUI(
                     transportType = transportType,
                     onClick = {
-                        _navigateViolation.postValue(com.kietngo.example.laws.traffic.repository.Event(true))
+                      //  _navigateViolation.postValue(Event(true))
                     }
                 )
             }

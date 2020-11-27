@@ -9,4 +9,6 @@ import com.kietngo.example.laws.traffic.ui.model.ViolationGroupUI
 class ViolationGroupRepository(private val violationGroupDao: ViolationGroupDao) {
 
     fun getAllViolationGroupUI(): LiveData<List<ViolationGroup>> = violationGroupDao.getAllViolationGroup()
+
+    fun getViolationGroupWithGroupID(groupID : Int) : LiveData<ViolationGroup> = violationGroupDao.getViolationGroupID(groupID)
 }
