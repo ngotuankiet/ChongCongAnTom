@@ -22,9 +22,30 @@
         <action
             android:id="@+id/action_homeFragment_to_violationFragment"
             app:destination="@id/violationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_indexFragment"
+            app:destination="@id/indexFragment" >
+            <argument
+                android:name="postId"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/violationFragment"
         android:name="com.kietngo.example.laws.traffic.ui.violation.ViolationFragment"
-        android:label="ViolationFragment" />
+        android:label="ViolationFragment" >
+        <action
+            android:id="@+id/action_violationFragment_to_indexFragment2"
+            app:destination="@id/indexFragment" >
+            <argument
+                android:name="postId"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/indexFragment"
+        android:name="com.kietngo.example.laws.traffic.ui.index.IndexFragment"
+        android:label="IndexFragment" />
 </navigation>

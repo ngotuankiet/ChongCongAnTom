@@ -37,6 +37,9 @@ class HomeViewModel constructor(
     private val _navigateViolation = MutableLiveData<Event<Boolean>>()
     val navigateViolation : LiveData<Event<Boolean>> = _navigateViolation
 
+    private val _navigateIndex = MutableLiveData<Event<NavDirections>>()
+    val navigateIndex : LiveData<Event<NavDirections>> = _navigateIndex
+
     init {
         val violationGroupDao = AppDatabase.getDatabase(application,viewModelScope).violationGroupDao()
         val violationDao = AppDatabase.getDatabase(application,viewModelScope).violationDao()
@@ -63,7 +66,11 @@ class HomeViewModel constructor(
                 ViolationUI(
                         violation = violation,
                         onClick = {
-                         //   _navigateViolation.postValue(Event(true))
+                            val id = violation.id
+                            if(id != null){
+                                val action = HomeFragmentDirections.actionHomeFragmentToIndexFragment(id)
+                                _navigateIndex.postValue(Event(action))
+                            }
                         }
                 )
             }

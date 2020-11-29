@@ -9,10 +9,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kietngo.example.laws.traffic.R
 import com.kietngo.example.laws.traffic.base.BaseFragment
 import com.kietngo.example.laws.traffic.databinding.FragmentViolationBinding
+import com.kietngo.example.laws.traffic.repository.EventObserver
 import com.kietngo.example.laws.traffic.ui.share.ShareViewModel
 import timber.log.Timber
 
@@ -38,7 +41,11 @@ class ViolationFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val violationInViolationGroupAdapter = ViolationInViolationGroupAdapter()
+        val violationInViolationGroupAdapter = ViolationInViolationGroupAdapter(requireContext(),lifecycleScope)
+
+        //back
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
 
         //test
         shareViewModel.shareViolationGroupIdToGet.observe(viewLifecycleOwner,{
@@ -55,6 +62,10 @@ class ViolationFragment : BaseFragment() {
             adapter = violationInViolationGroupAdapter
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         }
+
+        viewModel.navigateIndex.observe(viewLifecycleOwner, EventObserver{
+            findNavController().navigate(it)
+        })
     }
 
 

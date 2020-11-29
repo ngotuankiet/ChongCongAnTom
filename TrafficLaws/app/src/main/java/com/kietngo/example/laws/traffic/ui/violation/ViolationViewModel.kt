@@ -1,11 +1,10 @@
 package com.kietngo.example.laws.traffic.ui.violation
 
 import android.content.Context
+import androidx.lifecycle.*
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDirections
+import com.kietngo.example.laws.traffic.repository.Event
 import com.kietngo.example.laws.traffic.repository.repository.ViolationGroupRepository
 import com.kietngo.example.laws.traffic.repository.repository.ViolationRepository
 import com.kietngo.example.laws.traffic.repository.room.model.AppDatabase
@@ -13,6 +12,7 @@ import com.kietngo.example.laws.traffic.repository.room.model.violation.Violatio
 import com.kietngo.example.laws.traffic.repository.room.model.violationgroup.ViolationGroupDao
 import com.kietngo.example.laws.traffic.ui.model.ViolationGroupUI
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
+import timber.log.Timber
 
 class ViolationViewModel(context: Context): ViewModel() {
     private val violationRepository: ViolationRepository
@@ -20,6 +20,10 @@ class ViolationViewModel(context: Context): ViewModel() {
 
     private val listViolation : LiveData<List<Violation>>
     val listViolationUI : LiveData<List<ViolationUI>>
+
+    //TODO: Go to Index fragment
+    private val _navigateIndex = MutableLiveData<Event<NavDirections>>()
+    val navigateIndex : LiveData<Event<NavDirections>> = _navigateIndex
 
 
     init {
@@ -48,11 +52,17 @@ class ViolationViewModel(context: Context): ViewModel() {
         return Transformations.map(list){
             it.map { violation ->
                 ViolationUI(
-                        violation = violation,
-                        onClick = {
-                            //TODO: ...
-                        }
-                )
+                        violation = violation
+                ) {
+                    if (violation.id != null) {
+                        val action =
+                            ViolationFragmentDirections.actionViolationFragmentToIndexFragment2(
+                                violation.id
+                            )
+                        _navigateIndex.postValue(Event(action))
+                        Timber.d("navigate to index")
+                    }
+                }
             }
         }
     }

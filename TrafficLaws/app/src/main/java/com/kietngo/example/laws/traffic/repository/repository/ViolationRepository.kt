@@ -12,4 +12,5 @@ class ViolationRepository(private val violationDao: ViolationDao) {
 
     fun getAllViolationWithId(groupId: Int) : LiveData<List<Violation>> = violationDao.getViolationWithId(groupId)
 
+    fun getViolation(id: Int): LiveData<Violation> = violationDao.getViolation(id)
 }

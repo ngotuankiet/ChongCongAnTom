@@ -76,5 +76,9 @@ class HomeFragment : BaseFragment() {
                 findNavController().navigate(action)
             }
         })
+
+        viewModel.navigateIndex.observe(viewLifecycleOwner, EventObserver{
+            findNavController().navigate(it)
+        })
     }
 }

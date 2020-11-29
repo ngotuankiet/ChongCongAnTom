@@ -14,4 +14,8 @@ interface ViolationDao {
     /*get violation with group id*/
     @Query("SELECT * FROM TABLE_VIOLATION WHERE Group_ID LIKE :groupID")
     fun getViolationWithId(groupID :Int): LiveData<List<Violation>>
+
+    @Query("SELECT * FROM TABLE_VIOLATION WHERE ID = :id")
+    fun getViolation(id: Int) : LiveData<Violation>
+
 }
