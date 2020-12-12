@@ -30,6 +30,7 @@ class HomeViewModel constructor(
 
     private val listViolation : LiveData<List<Violation>>
     val listViolationUI : LiveData<List<ViolationUI>>
+
     private val listTransport : LiveData<List<TransportType>>
     val listTransportUI : LiveData<List<TransportUI>>
 

@@ -60,6 +60,7 @@ class HomeFragment : BaseFragment() {
         }
 
         val transportAdapter = TransportAdapter(requireContext())
+
         //set list transport
         viewModel.listTransportUI.observe(viewLifecycleOwner, {
             transportAdapter.submitList(it)

@@ -24,7 +24,6 @@ class IndexFragment : BaseFragment() {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return activity?.application?.let { IndexViewModel(it) } as T
             }
-
         }
     }
 
@@ -41,23 +40,24 @@ class IndexFragment : BaseFragment() {
         Timber.d("check postID $postId")
 
         if(postId != null){
-            viewModel.getViolationWithId(postId).observe(viewLifecycleOwner,{
-                binding.tvTitleViolation.text = it.violation.name
-                binding.tvContentViolation.text = it.violation.objectTraffic
-                binding.tvValueViolation.text = it.violation.fines
-                if(it.violation.additionalPenalties != null){
-                    binding.tvContentViolation.text = it.violation.additionalPenalties
+            viewModel.getViolationWithId(postId).observe(viewLifecycleOwner,{ violationUi ->
+                binding.tvTitleViolation.text = violationUi.violation.name
+                binding.tvContentViolation.text = violationUi.violation.objectTraffic
+                binding.tvValueViolation.text = violationUi.violation.fines
+                if(violationUi.violation.additionalPenalties != null){
+                    binding.tvContentViolation.text = violationUi.violation.additionalPenalties
                     binding.tvContentViolation.visibility = View.VISIBLE
                 }
-                if(it.violation.otherPenalties != null){
-                    binding.tvOtherPenalties.text = it.violation.otherPenalties
+                if(violationUi.violation.otherPenalties != null){
+                    binding.tvOtherPenalties.text = violationUi.violation.otherPenalties
                     binding.tvOtherPenalties.visibility = View.VISIBLE
                 }
+
                 //share
                 binding.btnShare.setOnClickListener { view ->
                     val sendIntent = Intent().apply{
                         action = Intent.ACTION_SEND
-                        val contentSend = "${it.violation.name} - ${it.violation.fines} + app V"
+                        val contentSend = "${violationUi.violation.name} - ${violationUi.violation.fines} + app V"
                         putExtra(Intent.EXTRA_TEXT, contentSend)
                         type= "text/plain"
                     }
