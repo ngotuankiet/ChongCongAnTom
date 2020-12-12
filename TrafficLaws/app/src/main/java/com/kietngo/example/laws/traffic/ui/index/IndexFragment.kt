@@ -1,5 +1,6 @@
 package com.kietngo.example.laws.traffic.ui.index
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,9 +45,27 @@ class IndexFragment : BaseFragment() {
                 binding.tvTitleViolation.text = it.violation.name
                 binding.tvContentViolation.text = it.violation.objectTraffic
                 binding.tvValueViolation.text = it.violation.fines
-
-                //more: con co Other_Penalties Additional_Penalties nen visiblie neu null
+                if(it.violation.additionalPenalties != null){
+                    binding.tvContentViolation.text = it.violation.additionalPenalties
+                    binding.tvContentViolation.visibility = View.VISIBLE
+                }
+                if(it.violation.otherPenalties != null){
+                    binding.tvOtherPenalties.text = it.violation.otherPenalties
+                    binding.tvOtherPenalties.visibility = View.VISIBLE
+                }
+                //share
+                binding.btnShare.setOnClickListener { view ->
+                    val sendIntent = Intent().apply{
+                        action = Intent.ACTION_SEND
+                        val contentSend = "${it.violation.name} - ${it.violation.fines} + app V"
+                        putExtra(Intent.EXTRA_TEXT, contentSend)
+                        type= "text/plain"
+                    }
+                    val shareIntent =Intent.createChooser(sendIntent,null)
+                    startActivity(shareIntent)
+                }
             })
+
         }
         binding.btnBack.setOnClickListener { findNavController().navigateUp() }
     }
