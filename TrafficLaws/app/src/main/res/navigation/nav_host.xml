@@ -30,6 +30,9 @@
                 app:argType="integer"
                 android:defaultValue="-1" />
         </action>
+        <action
+            android:id="@+id/action_homeFragment_to_shareFragment"
+            app:destination="@id/shareFragment" />
     </fragment>
     <fragment
         android:id="@+id/violationFragment"
@@ -48,4 +51,8 @@
         android:id="@+id/indexFragment"
         android:name="com.kietngo.example.laws.traffic.ui.index.IndexFragment"
         android:label="IndexFragment" />
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.kietngo.example.laws.traffic.ui.share.ShareFragment"
+        android:label="ShareFragment" />
 </navigation>

@@ -41,6 +41,19 @@ class HomeViewModel constructor(
     private val _navigateIndex = MutableLiveData<Event<NavDirections>>()
     val navigateIndex : LiveData<Event<NavDirections>> = _navigateIndex
 
+    //go to search fragment
+    private val _navigateSearch = MutableLiveData<Event<NavDirections>>()
+    val navigateSearch : LiveData<Event<NavDirections>> = _navigateSearch
+
+    private val _btnSearch = MutableLiveData<ButtonUI>().apply {
+        value = ButtonUI(
+            onClick = {
+                val action = HomeFragmentDirections.actionHomeFragmentToShareFragment()
+                _navigateSearch.postValue(Event(action))
+            }
+        )
+    }
+    val btnSearch : LiveData<ButtonUI> = _btnSearch
     init {
         val violationGroupDao = AppDatabase.getDatabase(application,viewModelScope).violationGroupDao()
         val violationDao = AppDatabase.getDatabase(application,viewModelScope).violationDao()
