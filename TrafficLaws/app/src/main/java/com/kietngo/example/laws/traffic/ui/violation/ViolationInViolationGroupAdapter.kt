@@ -61,4 +61,9 @@ class ViolationInViolationGroupAdapter constructor(
     override fun onBindViewHolder(holder: ViolationViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
+    fun updateList(list: List<ViolationUI>){
+        submitList(list)
+        notifyDataSetChanged()
+    }
 }

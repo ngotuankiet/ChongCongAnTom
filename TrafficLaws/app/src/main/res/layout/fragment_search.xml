@@ -10,12 +10,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.share.ShareFragment">
+        tools:context=".ui.search.SearchFragment">
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/sreach_view"
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_violation"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_view"
+            tools:listitem="@layout/item_violation_in_violation_group" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

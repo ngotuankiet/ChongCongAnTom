@@ -53,6 +53,6 @@
         android:label="IndexFragment" />
     <fragment
         android:id="@+id/shareFragment"
-        android:name="com.kietngo.example.laws.traffic.ui.share.ShareFragment"
+        android:name="com.kietngo.example.laws.traffic.ui.search.SearchFragment"
         android:label="ShareFragment" />
 </navigation>
