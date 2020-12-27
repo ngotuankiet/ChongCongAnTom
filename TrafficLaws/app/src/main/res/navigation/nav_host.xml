@@ -54,5 +54,14 @@
     <fragment
         android:id="@+id/shareFragment"
         android:name="com.kietngo.example.laws.traffic.ui.search.SearchFragment"
-        android:label="ShareFragment" />
+        android:label="ShareFragment" >
+        <action
+            android:id="@+id/action_shareFragment_to_indexFragment"
+            app:destination="@id/indexFragment" >
+            <argument
+                android:name="postId"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        </action>
+    </fragment>
 </navigation>

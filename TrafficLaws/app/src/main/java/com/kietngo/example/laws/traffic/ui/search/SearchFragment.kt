@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kietngo.example.laws.traffic.base.BaseFragment
 import com.kietngo.example.laws.traffic.databinding.FragmentSearchBinding
+import com.kietngo.example.laws.traffic.repository.EventObserver
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 import com.kietngo.example.laws.traffic.ui.violation.ViolationInViolationGroupAdapter
 import kotlinx.coroutines.Dispatchers
@@ -51,7 +53,13 @@ class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
 
         binding.searchView.setOnQueryTextListener(this)
 
+
+        viewModel.navigateIndex.observe(viewLifecycleOwner,EventObserver{
+            findNavController().navigate(it)
+        })
     }
+
+
 
     override fun onQueryTextSubmit(p0: String?): Boolean {
         if(binding.listViolation.visibility == View.GONE){
