@@ -78,7 +78,7 @@ class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
         viewModel.listViolationUI.observe(viewLifecycleOwner,{list ->
             if(!searchString.isNullOrEmpty()){
                 val listSearch = list.filter {
-                    it.violation.name!!.contains(searchString,true)
+                    it.violation.name!!.contains(searchString,false)
                 }
                 violationAdapter.updateList(listSearch)
             }
@@ -86,3 +86,5 @@ class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
 
     }
 }
+
+// Search con 1 cai logic trong microsoft nma chua lam vi chua co time :v lam UI da~
