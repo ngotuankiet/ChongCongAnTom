@@ -106,5 +106,9 @@ class HomeFragment : BaseFragment() {
         viewModel.navigateSearch.observe(viewLifecycleOwner,EventObserver{
             findNavController().navigate(it)
         })
+
+        viewModel.navigateTransport.observe(viewLifecycleOwner,EventObserver{
+            findNavController().navigate(it)
+        })
     }
 }

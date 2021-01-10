@@ -33,6 +33,14 @@
         <action
             android:id="@+id/action_homeFragment_to_shareFragment"
             app:destination="@id/shareFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_transportFragment"
+            app:destination="@id/transportFragment" >
+            <argument
+                android:name="transportID"
+                app:argType="integer"
+                android:defaultValue="-1"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/violationFragment"
@@ -63,5 +71,14 @@
                 app:argType="integer"
                 android:defaultValue="-1" />
         </action>
+    </fragment>
+    <fragment
+        android:id="@+id/transportFragment"
+        android:name="com.kietngo.example.laws.traffic.ui.transport.TransportFragment"
+        android:label="fragment_transport"
+        tools:layout="@layout/fragment_transport" >
+        <action
+            android:id="@+id/action_transportFragment_to_violationFragment"
+            app:destination="@id/violationFragment" />
     </fragment>
 </navigation>

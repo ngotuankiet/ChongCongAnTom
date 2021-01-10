@@ -21,7 +21,7 @@ class TransportAdapter(val context: Context) : ListAdapter<TransportUI, Transpor
             binding.btnTransport.text = transportUI.transportType.typeName
             binding.btnTransport.setOnClickListener {
                 transportUI.onClick()
-                Timber.d("navigate to ...")
+                Timber.d("navigate to transport Fragment")
             }
         }
     }

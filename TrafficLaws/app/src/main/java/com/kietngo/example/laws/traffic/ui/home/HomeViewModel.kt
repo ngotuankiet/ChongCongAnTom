@@ -37,6 +37,9 @@ class HomeViewModel constructor(
     private val listTransport : LiveData<List<TransportType>>
     val listTransportUI : LiveData<List<TransportUI>>
 
+    private val _navigateTransport = MutableLiveData<Event<NavDirections>>()
+    val navigateTransport : LiveData<Event<NavDirections>> = _navigateTransport
+
     private val _navigateViolation = MutableLiveData<Event<Boolean>>()
     val navigateViolation : LiveData<Event<Boolean>> = _navigateViolation
 
@@ -101,7 +104,11 @@ class HomeViewModel constructor(
                     transportType = transportType,
                     onTouch = false,
                     onClick = {
-                      //  _navigateViolation.postValue(Event(true))
+                        val typeSort = transportType.typeSort
+                        if (typeSort!=null){
+                            val action = HomeFragmentDirections.actionHomeFragmentToTransportFragment(typeSort)
+                            _navigateTransport.postValue(Event(action))
+                        }
                     }
                 )
             }
