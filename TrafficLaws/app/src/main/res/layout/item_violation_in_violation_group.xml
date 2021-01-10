@@ -28,6 +28,12 @@
                 style="@style/text_view_title_violation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_transport"
+                android:text="@string/transport"
+                android:textSize="@dimen/sp_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_value_violation"

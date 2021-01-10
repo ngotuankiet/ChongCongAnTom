@@ -29,6 +29,8 @@ class ViolationInViolationGroupAdapter constructor(
         fun bind(violationUI : ViolationUI){
             binding.tvTitleViolation.text = violationUI.violation.name
             binding.tvValueViolation.text = violationUI.violation.fines
+            binding.tvTransport.text = violationUI.violation.typeId?.let { setTransport(it) }
+
 //            scope.launch(Dispatchers.IO){
 //                val addImage =  Glide.with(context).load(violationUI.violation.icon).apply(RequestOptions().override(60, 60))
 //                withContext(Dispatchers.Main){
@@ -38,6 +40,16 @@ class ViolationInViolationGroupAdapter constructor(
             itemView.setOnClickListener {
                 violationUI.onClick()
             }
+        }
+        /**
+         * @param numberTransport tham so class violation typeID
+         * @return ve ten transport
+         * */
+        private fun setTransport(numberTransport : Int) : String = when(numberTransport){
+            1 -> "Xe Máy"
+            2 -> "Ô Tô"
+            3 -> "Khác"
+            else -> "Khác"
         }
     }
 

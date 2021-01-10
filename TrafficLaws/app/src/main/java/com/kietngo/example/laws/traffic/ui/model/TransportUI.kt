@@ -4,5 +4,6 @@ import com.kietngo.example.laws.traffic.repository.room.model.transport.type.Tra
 
 data class TransportUI(
         val transportType: TransportType,
+        var onTouch: Boolean,
         val onClick: () -> Unit
 )

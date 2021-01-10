@@ -147,4 +147,3 @@ class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
         return listNew
     }
 }
-//https://proandroiddev.com/implementing-search-filter-using-kotlin-channels-and-flows-in-your-android-application-df7c96e58b19

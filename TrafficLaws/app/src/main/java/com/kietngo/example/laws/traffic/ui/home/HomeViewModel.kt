@@ -95,6 +95,7 @@ class HomeViewModel constructor(
             it.map { transportType ->
                 TransportUI(
                     transportType = transportType,
+                    onTouch = false,
                     onClick = {
                       //  _navigateViolation.postValue(Event(true))
                     }
