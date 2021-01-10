@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -15,13 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kietngo.example.laws.traffic.base.BaseFragment
 import com.kietngo.example.laws.traffic.databinding.FragmentSearchBinding
 import com.kietngo.example.laws.traffic.repository.EventObserver
-import com.kietngo.example.laws.traffic.repository.room.model.key.word.detail.KeyWordDetail
 import com.kietngo.example.laws.traffic.repository.room.model.keyword.KeyWord
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 import com.kietngo.example.laws.traffic.ui.violation.ViolationInViolationGroupAdapter
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.FlowPreview
 import timber.log.Timber
 
 class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
@@ -42,6 +39,8 @@ class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi // cos thay doi gi trong luong corotine hay ko
+    @FlowPreview // hieu nang Flow
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         violationAdapter = ViolationInViolationGroupAdapter(requireContext(),lifecycleScope)
@@ -57,31 +56,27 @@ class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
 
         binding.searchView.setOnQueryTextListener(this)
 
-
+        // chuyen man hinh sang index fragment
         viewModel.navigateIndex.observe(viewLifecycleOwner,EventObserver{
             findNavController().navigate(it)
         })
-        viewModel.listViolationTest1.observe(viewLifecycleOwner, {list ->
-            Timber.d("test size list ${list.size}")
+
+        //Submit theo key cua search
+        viewModel.listViolationFlow.observe(viewLifecycleOwner, {list ->
             violationAdapter.updateList(list)
+            Timber.d("update lai list")
         })
     }
-
-
 
     @ExperimentalCoroutinesApi
     override fun onQueryTextSubmit(p0: String?): Boolean {
         if(binding.listViolation.visibility == View.GONE){
             binding.listViolation.visibility = View.VISIBLE
         }
-//        logicSearch(p0)
-//        logicSearchUpdate(p0)
-//        p0?.let {
-//            viewModel.setQuerySearch(it)
-//        }
         return false
     }
 
+    @ExperimentalCoroutinesApi
     override fun onQueryTextChange(p0: String?): Boolean {
         if(binding.listViolation.visibility == View.GONE){
             binding.listViolation.visibility = View.VISIBLE
@@ -93,17 +88,7 @@ class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
         return false
     }
 
-    private fun logicSearch(searchString: String?){
-        viewModel.listViolationUI.observe(viewLifecycleOwner,{list ->
-            if(!searchString.isNullOrEmpty()){
-                val listSearch = list.filter {
-                    it.violation.name!!.contains(searchString,false)
-                }
-                violationAdapter.submitList(listSearch)
-            }
-        })
-    }
-
+    // 2 fun duoi theo logic cua db chua fix dc vi no loan vcl
     private fun logicSearchUpdate(searchString: String?){
 
         viewModel.listKeyWord.observe(viewLifecycleOwner, {list ->
@@ -147,7 +132,6 @@ class SearchFragment : BaseFragment(), SearchView.OnQueryTextListener {
             }
             })
     }
-
 
     private fun getEmptyDifferent(list: ArrayList<Long>): ArrayList<Long>{
         list.sort()

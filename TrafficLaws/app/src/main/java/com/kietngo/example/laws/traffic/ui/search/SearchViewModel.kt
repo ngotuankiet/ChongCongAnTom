@@ -69,13 +69,13 @@ class SearchViewModel constructor(
         listKeyWordDetail = keyWordDetailRepository.getAllKeyWordDetail()
     }
 
-    //Test
+    // bien nay co chuc nang lay gia tri moi nhat gui toi... giong query
     @ExperimentalCoroutinesApi
     private val searchChannel = ConflatedBroadcastChannel<String>()
 
     @ExperimentalCoroutinesApi
     @FlowPreview
-    private val _listViolationTest1 = searchChannel.asFlow()
+    private val _listViolationFlow = searchChannel.asFlow()
             .flatMapLatest { search ->
                 violationRepository.getSearchViolationWithName(search)
             }
@@ -86,7 +86,7 @@ class SearchViewModel constructor(
 
     @FlowPreview
     @ExperimentalCoroutinesApi
-    val listViolationTest1 = Transformations.map(_listViolationTest1){
+    val listViolationFlow = Transformations.map(_listViolationFlow){
         it.map { violationT ->
             ViolationUI(
                     violation = violationT,
@@ -113,6 +113,7 @@ class SearchViewModel constructor(
         }
     }
 
+    // gui search den searchChannel
     @ExperimentalCoroutinesApi
     fun setQuerySearch(search: String){
         searchChannel.offer(search)

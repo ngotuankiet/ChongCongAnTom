@@ -1,13 +1,10 @@
 package com.kietngo.example.laws.traffic.repository.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.kietngo.example.laws.traffic.repository.room.model.violation.Violation
 import com.kietngo.example.laws.traffic.repository.room.model.violation.ViolationDao
-import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
 
@@ -24,6 +21,6 @@ class ViolationRepository(private val violationDao: ViolationDao) {
 
     fun getSearchViolationWithName(name: String) : Flow<List<Violation>> {
         return violationDao.filterWithName(name)
-//                .flowOn(Dispatchers.Default).conflate()
+                .flowOn(Dispatchers.Default).conflate()
     }
 }
