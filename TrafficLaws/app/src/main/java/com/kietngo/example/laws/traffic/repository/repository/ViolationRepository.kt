@@ -5,6 +5,12 @@ import androidx.lifecycle.Transformations
 import com.kietngo.example.laws.traffic.repository.room.model.violation.Violation
 import com.kietngo.example.laws.traffic.repository.room.model.violation.ViolationDao
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flowOn
+
 
 class ViolationRepository(private val violationDao: ViolationDao) {
 
@@ -13,4 +19,11 @@ class ViolationRepository(private val violationDao: ViolationDao) {
     fun getAllViolationWithId(groupId: Int) : LiveData<List<Violation>> = violationDao.getViolationWithId(groupId)
 
     fun getViolation(id: Int): LiveData<Violation> = violationDao.getViolation(id)
+
+    fun getViolationT(id: Int): Violation = violationDao.getViolationT(id)
+
+    fun getSearchViolationWithName(name: String) : Flow<List<Violation>> {
+        return violationDao.filterWithName(name)
+//                .flowOn(Dispatchers.Default).conflate()
+    }
 }

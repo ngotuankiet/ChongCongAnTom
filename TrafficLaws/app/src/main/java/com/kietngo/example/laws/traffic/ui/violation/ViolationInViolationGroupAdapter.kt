@@ -61,7 +61,7 @@ class ViolationInViolationGroupAdapter constructor(
     override fun onBindViewHolder(holder: ViolationViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
+    // Tai sao ko submit luon vi can phai notifiyData de clear item chu ko lon item
     fun updateList(list: List<ViolationUI>){
         submitList(list)
         notifyDataSetChanged()

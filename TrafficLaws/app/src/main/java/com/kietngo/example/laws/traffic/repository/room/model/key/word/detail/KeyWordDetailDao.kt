@@ -9,7 +9,7 @@ import com.kietngo.example.laws.traffic.repository.room.model.key.word.detail.Ke
 interface KeyWordDetailDao {
     /*get all key word detail*/
     @Query("SELECT * FROM TABLE_KEYWORD_DETAIL")
-    fun getALlKeyWordDetail(): List<KeyWordDetail>
+    fun getALlKeyWordDetail(): LiveData<List<KeyWordDetail>>
 
     /*get key work with id */
 //    @Query("SELECT * FROM TABLE_KEYWORD_DETAIL WHERE ID = :keyWordId")

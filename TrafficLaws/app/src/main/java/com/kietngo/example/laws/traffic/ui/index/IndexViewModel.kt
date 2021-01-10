@@ -8,10 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.kietngo.example.laws.traffic.repository.repository.ViolationRepository
 import com.kietngo.example.laws.traffic.repository.room.model.AppDatabase
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 
 class IndexViewModel(
     val context : Context
 ): ViewModel() {
+//    private  val searchChannel = ConflatedBroadcastChannel<String>()
 
     private val violationRepository : ViolationRepository
 
