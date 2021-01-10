@@ -19,11 +19,22 @@ class ViolationAdapter : ListAdapter<ViolationUI,ViolationAdapter.ViolationViewH
         fun bind(violationUI : ViolationUI){
             binding.tvTitleViolation.text = violationUI.violation.name
             binding.tvValueViolation.text = violationUI.violation.fines
-
+            binding.tvTransport.text = violationUI.violation.typeId?.let {it ->  setTransport(it) }
             itemView.setOnClickListener {
                 violationUI.onClick()
             }
         }
+        /**
+         * @param numberTransport tham so class violation typeID
+         * @return ve ten transport
+         * */
+        private fun setTransport(numberTransport : Int) : String = when(numberTransport){
+            1 -> "Xe Máy"
+            2 -> "Ô Tô"
+            3 -> "Khác"
+            else -> "Khác"
+        }
+
 
     }
 

@@ -16,6 +16,9 @@ import com.kietngo.example.laws.traffic.ui.model.ButtonUI
 import com.kietngo.example.laws.traffic.ui.model.TransportUI
 import com.kietngo.example.laws.traffic.ui.model.ViolationGroupUI
 import com.kietngo.example.laws.traffic.ui.model.ViolationUI
+import timber.log.Timber
+import java.util.*
+import java.util.Collections.shuffle
 
 class HomeViewModel constructor(
         private val application: Application
@@ -33,7 +36,6 @@ class HomeViewModel constructor(
 
     private val listTransport : LiveData<List<TransportType>>
     val listTransportUI : LiveData<List<TransportUI>>
-
 
     private val _navigateViolation = MutableLiveData<Event<Boolean>>()
     val navigateViolation : LiveData<Event<Boolean>> = _navigateViolation
@@ -76,6 +78,8 @@ class HomeViewModel constructor(
         }
         listViolation = violationRepository.getAllViolation()
         listViolationUI = Transformations.map(listViolation){
+            // random lai list :v
+            shuffle(it)
             it.map { violation ->
                 ViolationUI(
                         violation = violation,
