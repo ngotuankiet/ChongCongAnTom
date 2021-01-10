@@ -30,7 +30,6 @@ class ViolationFragment : BaseFragment() {
 
         }
     }
-    private val shareViewModel : ShareViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,17 +45,23 @@ class ViolationFragment : BaseFragment() {
         //back
         binding.btnBack.setOnClickListener { findNavController().navigateUp() }
 
+        val groupSortId = arguments?.getInt("groupSort")
+        val transportID = arguments?.getInt("transportID")
+        groupSortId?.let { groupId ->
+            viewModel.getAllListViolationUIWithId(groupId).observe(viewLifecycleOwner,{list ->
 
-        //test
-        shareViewModel.shareViolationGroupIdToGet.observe(viewLifecycleOwner,{
-            viewModel.getAllListViolationUIWithId(it).observe(viewLifecycleOwner,{list ->
-                violationInViolationGroupAdapter.submitList(list)
+                if(transportID != 0){
+                    val newList = list.filter { violationUI ->
+                        violationUI.violation.typeId == transportID
+                    }
+                    violationInViolationGroupAdapter.submitList(newList)
+                }
+                else violationInViolationGroupAdapter.submitList(list)
             })
-
-            viewModel.getViolationGroupUiWithGroupId(it).observe(viewLifecycleOwner,{ violationGroup ->
+            viewModel.getViolationGroupUiWithGroupId(groupId).observe(viewLifecycleOwner,{ violationGroup ->
                 binding.tvTitleViolationGroup.text = violationGroup.violationGroup.groupName
             })
-        })
+        }
 
         binding.listViolation.apply {
             adapter = violationInViolationGroupAdapter

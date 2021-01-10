@@ -1,10 +1,9 @@
 package com.kietngo.example.laws.traffic.ui.transport
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.navigation.NavDirections
+import com.kietngo.example.laws.traffic.repository.Event
 import com.kietngo.example.laws.traffic.repository.repository.TransportRepository
 import com.kietngo.example.laws.traffic.repository.repository.ViolationGroupRepository
 import com.kietngo.example.laws.traffic.repository.room.model.AppDatabase
@@ -15,7 +14,8 @@ class TransportViewModel constructor(val context: Context): ViewModel() {
     private val violationGroupRepository : ViolationGroupRepository
 
     val listViolationGroupUI : LiveData<List<ViolationGroupUI>>
-
+    private val _navigateViolation = MutableLiveData<Event<Int>>()
+    val navigateViolation : LiveData<Event<Int>> = _navigateViolation
 
     init {
         val violationGroupUI = AppDatabase.getDatabase(context,viewModelScope).violationGroupDao()
@@ -26,7 +26,10 @@ class TransportViewModel constructor(val context: Context): ViewModel() {
                 ViolationGroupUI(
                     violationGroup = violationGroup,
                     onClick = {
-                        //TODO:..
+                        val groupSortId = violationGroup.groupSort
+                        if(groupSortId != null){
+                            _navigateViolation.postValue(Event(groupSortId))
+                        }
                     }
                 )
             }

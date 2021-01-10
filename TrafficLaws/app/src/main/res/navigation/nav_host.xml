@@ -21,7 +21,12 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_violationFragment"
-            app:destination="@id/violationFragment" />
+            app:destination="@id/violationFragment" >
+            <argument
+                android:name="groupSort"
+                app:argType="integer"
+                android:defaultValue="-1"/>
+        </action>
         <action
             android:id="@+id/action_homeFragment_to_indexFragment"
             app:destination="@id/indexFragment" >
@@ -79,6 +84,15 @@
         tools:layout="@layout/fragment_transport" >
         <action
             android:id="@+id/action_transportFragment_to_violationFragment"
-            app:destination="@id/violationFragment" />
+            app:destination="@id/violationFragment" >
+            <argument
+                android:name="transportID"
+                app:argType="integer"
+                android:defaultValue="-1"/>
+            <argument
+                android:name="groupSort"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        </action>
     </fragment>
 </navigation>

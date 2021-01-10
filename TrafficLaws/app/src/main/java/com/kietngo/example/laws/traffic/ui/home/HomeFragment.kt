@@ -38,11 +38,13 @@ class HomeFragment : BaseFragment() {
             }
         }
     }
-    val shareViewModel : ShareViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        violationGroupAdapter = ViolationGroupAdapter(requireContext(),viewModel.listViolationUI,shareViewModel.shareViolationGroupId)
+        violationGroupAdapter = ViolationGroupAdapter(
+            contextFragment = requireContext(),
+            listViolationUI = viewModel.listViolationUI,
+        )
     }
 
     override fun onCreateView(
@@ -56,38 +58,29 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.listViolationGroupUI.observe(viewLifecycleOwner, {
-            violationGroupAdapter.submitList(it)
-        })
+        val transportAdapter = TransportAdapter(requireContext())
 
         binding.listViolationGroup.apply {
             adapter = violationGroupAdapter
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         }
 
-        val transportAdapter = TransportAdapter(requireContext())
+        binding.listTransport.apply {
+            adapter = transportAdapter
+            layoutManager = GridLayoutManager(requireContext(),3, GridLayoutManager.VERTICAL, false)
+        }
 
         //set list transport
         viewModel.listTransportUI.observe(viewLifecycleOwner, {
             transportAdapter.submitList(it)
         })
 
-        binding.listTransport.apply {
-            adapter = transportAdapter
-            layoutManager = GridLayoutManager(requireContext(),3, GridLayoutManager.VERTICAL, false)
-        }
-
-        viewModel.navigateViolation.observe(viewLifecycleOwner, EventObserver{
-            if(it){
-                val action = HomeFragmentDirections.actionHomeFragmentToViolationFragment()
-                findNavController().navigate(action)
-            }
+        // set list violation group
+        viewModel.listViolationGroupUI.observe(viewLifecycleOwner, {
+            violationGroupAdapter.submitList(it)
         })
 
-        viewModel.navigateIndex.observe(viewLifecycleOwner, EventObserver{
-            findNavController().navigate(it)
-        })
-
+        // set button search
         viewModel.btnSearch.observe(viewLifecycleOwner, {btn ->
             binding.bottomNav.setOnNavigationItemSelectedListener { item ->
                 when (item.itemId){
@@ -103,10 +96,22 @@ class HomeFragment : BaseFragment() {
             }
         })
 
+        // navigate violation fragment
+        viewModel.navigateViolation.observe(viewLifecycleOwner, EventObserver{
+            findNavController().navigate(it)
+        })
+
+        // navigate index fragment
+        viewModel.navigateIndex.observe(viewLifecycleOwner, EventObserver{
+            findNavController().navigate(it)
+        })
+
+        // navigate search fragment
         viewModel.navigateSearch.observe(viewLifecycleOwner,EventObserver{
             findNavController().navigate(it)
         })
 
+        // navigate transport fragment
         viewModel.navigateTransport.observe(viewLifecycleOwner,EventObserver{
             findNavController().navigate(it)
         })

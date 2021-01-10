@@ -40,13 +40,12 @@ class HomeViewModel constructor(
     private val _navigateTransport = MutableLiveData<Event<NavDirections>>()
     val navigateTransport : LiveData<Event<NavDirections>> = _navigateTransport
 
-    private val _navigateViolation = MutableLiveData<Event<Boolean>>()
-    val navigateViolation : LiveData<Event<Boolean>> = _navigateViolation
+    private val _navigateViolation = MutableLiveData<Event<NavDirections>>()
+    val navigateViolation : LiveData<Event<NavDirections>> = _navigateViolation
 
     private val _navigateIndex = MutableLiveData<Event<NavDirections>>()
     val navigateIndex : LiveData<Event<NavDirections>> = _navigateIndex
 
-    //go to search fragment
     private val _navigateSearch = MutableLiveData<Event<NavDirections>>()
     val navigateSearch : LiveData<Event<NavDirections>> = _navigateSearch
 
@@ -74,11 +73,18 @@ class HomeViewModel constructor(
                 ViolationGroupUI(
                         violationGroup = violationGroup,
                         onClick = {
-                            _navigateViolation.postValue(Event(true))
+                            val groupSort = violationGroup.groupSort
+                            if (groupSort != null) {
+                                val action =
+                                    HomeFragmentDirections
+                                        .actionHomeFragmentToViolationFragment(groupSort)
+                                _navigateViolation.postValue(Event(action))
+                            }
                         }
                 )
             }
         }
+
         listViolation = violationRepository.getAllViolation()
         listViolationUI = Transformations.map(listViolation){
             // random lai list :v
@@ -89,7 +95,8 @@ class HomeViewModel constructor(
                         onClick = {
                             val id = violation.id
                             if(id != null){
-                                val action = HomeFragmentDirections.actionHomeFragmentToIndexFragment(id)
+                                val action = HomeFragmentDirections
+                                    .actionHomeFragmentToIndexFragment(id)
                                 _navigateIndex.postValue(Event(action))
                             }
                         }
@@ -106,7 +113,8 @@ class HomeViewModel constructor(
                     onClick = {
                         val typeSort = transportType.typeSort
                         if (typeSort!=null){
-                            val action = HomeFragmentDirections.actionHomeFragmentToTransportFragment(typeSort)
+                            val action = HomeFragmentDirections
+                                .actionHomeFragmentToTransportFragment(typeSort)
                             _navigateTransport.postValue(Event(action))
                         }
                     }

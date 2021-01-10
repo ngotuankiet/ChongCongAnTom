@@ -17,7 +17,6 @@ import com.kietngo.example.laws.traffic.ui.model.ViolationUI
 class ViolationGroupAdapter constructor(
         val contextFragment: Context,
         val listViolationUI: LiveData<List<ViolationUI>>,
-        val shareViolationGroupId : MutableLiveData<Int>
 )
     : ListAdapter<ViolationGroupUI, ViolationGroupAdapter.ViolationGroupViewHolder>(ViolationGroupAdapter.ViolationGroupDiffUtil){
 
@@ -40,7 +39,6 @@ class ViolationGroupAdapter constructor(
 
             binding.btnViolationMore.setOnClickListener {
                 violationGroupUI.onClick()
-                shareViolationGroupId.postValue(violationGroupUI.violationGroup.groupId)
             }
         }
     }
