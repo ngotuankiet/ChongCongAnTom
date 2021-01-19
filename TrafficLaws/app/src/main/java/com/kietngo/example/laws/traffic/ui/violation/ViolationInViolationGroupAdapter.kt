@@ -30,13 +30,10 @@ class ViolationInViolationGroupAdapter constructor(
             binding.tvTitleViolation.text = violationUI.violation.name
             binding.tvValueViolation.text = violationUI.violation.fines
             binding.tvTransport.text = violationUI.violation.typeId?.let { setTransport(it) }
+            val urlImage = violationUI.violation.icon
 
-//            scope.launch(Dispatchers.IO){
-//                val addImage =  Glide.with(context).load(violationUI.violation.icon).apply(RequestOptions().override(60, 60))
-//                withContext(Dispatchers.Main){
-//                    addImage.into(binding.ivViolation)
-//                }
-//            }
+            Glide.with(itemView).load(urlImage).centerCrop().into(binding.ivViolation)
+
             itemView.setOnClickListener {
                 violationUI.onClick()
             }
