@@ -12,6 +12,6 @@ interface BookmarkTypeDao {
     fun getAllBookmarkType(): List<BookMarkType>
 
     /*get bookmark type with type id*/
-//    @Query("SELECT * FROM TABLE_BOOKMARK_TYPE WHERE Type_ID = :typeId")
-//    fun getBookmarkTypeWithTypeId(typeId: Int) : LiveData<BookMarkType>
+    @Query("SELECT * FROM TABLE_BOOKMARK_TYPE WHERE Type_ID = :typeId")
+    fun getBookmarkTypeWithTypeId(typeId: Int) : LiveData<BookMarkType>
 }

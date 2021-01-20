@@ -64,6 +64,19 @@ class IndexFragment : BaseFragment() {
                     val shareIntent =Intent.createChooser(sendIntent,null)
                     startActivity(shareIntent)
                 }
+
+                val violationID = violationUi.violation.id
+                if (violationID != null) {
+                    viewModel.getBookMarkWithViolationId(violationID).observe(viewLifecycleOwner, {bookMarkUI ->
+                        binding.tvBookmark.text = bookMarkUI.bookmark.bookmarkName
+                    })
+                }
+                val violationTypeId = violationUi.violation.typeId
+                if (violationTypeId != null) {
+                    viewModel.getBookMarkTypeWithViolationTypeId(violationTypeId).observe(viewLifecycleOwner,{bookMarkTypeUI ->
+                        binding.tvBookMarkType.text = bookMarkTypeUI.bookMarkType.typeName
+                    })
+                }
             })
 
         }

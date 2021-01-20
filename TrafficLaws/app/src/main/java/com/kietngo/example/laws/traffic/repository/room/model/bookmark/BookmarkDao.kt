@@ -12,6 +12,6 @@ interface BookmarkDao {
     fun getAllBookMark(): List<Bookmark>
 
     /*get Bookmark with ID*/
-    @Query("SELECT * FROM TABLE_BOOKMARK WHERE ID = :BookmarkId")
+    @Query("SELECT * FROM TABLE_BOOKMARK WHERE Violation_ID = :BookmarkId")
     fun getBookmarkWithId(BookmarkId : Int) : LiveData<Bookmark>
 }

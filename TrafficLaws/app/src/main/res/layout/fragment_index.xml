@@ -84,6 +84,19 @@
             app:layout_constraintTop_toBottomOf="@id/tv_content_violation"
             android:padding="@dimen/size_10"
             android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_bookmark"
+            android:text="bookmark"
+            app:layout_constraintTop_toBottomOf="@id/tv_other_penalties"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_bookMark_type"
+            app:layout_constraintTop_toBottomOf="@id/tv_bookmark"
+            android:text="Book mark type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"    />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
